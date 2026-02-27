@@ -45,7 +45,7 @@ export default function AdminDashboard() {
       label: 'Live Prayers',
       value: '842',
       icon: MessageSquare,
-      color: 'text-red-600',
+      color: 'text-brand',
       trend: '+5%',
     },
     {
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
           <button className="px-6 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-zinc-50 transition-all">
             Download Report
           </button>
-          <button className="px-6 py-2 bg-red-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-red-700 transition-all">
+          <button className="px-6 py-2 bg-brand text-brand-foreground rounded-xl text-xs font-black uppercase tracking-widest hover:bg-brand-hover transition-all">
             System Status: OK
           </button>
         </div>
@@ -127,8 +127,16 @@ export default function AdminDashboard() {
               <AreaChart data={DATA}>
                 <defs>
                   <linearGradient id="colorPrayers" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
+                    <stop
+                      offset="5%"
+                      stopColor="var(--brand)"
+                      stopOpacity={0.3}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--brand)"
+                      stopOpacity={0}
+                    />
                   </linearGradient>
                 </defs>
                 <CartesianGrid
@@ -157,7 +165,7 @@ export default function AdminDashboard() {
                 <Area
                   type="monotone"
                   dataKey="prayers"
-                  stroke="#ef4444"
+                  stroke="var(--brand)"
                   strokeWidth={4}
                   fillOpacity={1}
                   fill="url(#colorPrayers)"
@@ -212,16 +220,16 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      <div className="bg-red-600 rounded-[3rem] p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="bg-brand rounded-[3rem] p-12 text-brand-foreground flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="space-y-2">
           <h2 className="text-3xl font-black italic tracking-tight">
             Need Immediate Assistance?
           </h2>
-          <p className="text-red-100 font-medium">
+          <p className="opacity-80 font-medium">
             Contact the technical support team or review active platform alerts.
           </p>
         </div>
-        <button className="px-10 py-4 bg-white text-red-600 rounded-full font-black uppercase tracking-widest text-sm hover:scale-105 transition-all">
+        <button className="px-10 py-4 bg-brand-foreground text-brand rounded-full font-black uppercase tracking-widest text-sm hover:scale-105 transition-all">
           Open Support Ticket
         </button>
       </div>

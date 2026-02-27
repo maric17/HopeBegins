@@ -2,10 +2,13 @@ import { z } from 'zod';
 
 export const prayerSchema = z.object({
   id: z.string().uuid().optional(),
-  title: z.string().min(5, 'Title must be at least 5 characters'),
-  content: z.string().min(10, 'Content must be at least 10 characters'),
+  title: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  content: z.string().min(10, 'Prayer concern must be at least 10 characters'),
   category: z.enum(['GENERAL', 'HEALTH', 'FINANCE', 'RELATIONSHIP', 'OTHER']),
-  isAnonymous: z.boolean().default(false),
+  isAnonymous: z.boolean(),
+  shareFirstName: z.boolean().default(true),
+  wantsFollowUp: z.boolean().default(false),
   userId: z.string().optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),

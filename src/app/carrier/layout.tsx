@@ -13,9 +13,13 @@ export default function CarrierLayout({
   children: React.ReactNode;
 }) {
   const MENU_ITEMS = [
-    { label: 'Carrier Hub', href: '/dashboard', icon: LayoutDashboard },
-    { label: 'Open Prayers', href: '/dashboard', icon: Inbox },
-    { label: 'Claimed Prayers', href: '/claimed-prayers', icon: ShieldCheck },
+    { label: 'Carrier Hub', href: '/carrier/dashboard', icon: LayoutDashboard },
+    { label: 'Open Prayers', href: '/carrier/dashboard', icon: Inbox },
+    {
+      label: 'Claimed Prayers',
+      href: '/carrier/claimed-prayers',
+      icon: ShieldCheck,
+    },
     { label: 'Community', href: '#', icon: Users },
   ];
 

@@ -63,7 +63,7 @@ export default function ManageHopecastsPage() {
               className="pl-10 h-10 rounded-xl border-none bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-200/50"
             />
           </div>
-          <Button className="bg-red-600 hover:bg-red-700 text-white rounded-xl h-10 px-6 font-bold uppercase tracking-widest text-xs">
+          <Button className="bg-brand hover:bg-brand-hover text-brand-foreground rounded-xl h-10 px-6 font-bold uppercase tracking-widest text-xs">
             <Plus className="mr-2 h-4 w-4" />
             New Cast
           </Button>
@@ -102,8 +102,8 @@ export default function ManageHopecastsPage() {
               >
                 <TableCell className="font-bold text-zinc-900 dark:text-zinc-100 pl-8">
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
-                      <Radio className="h-4 w-4 text-red-600" />
+                    <div className="h-8 w-8 bg-brand-muted rounded-lg flex items-center justify-center text-brand">
+                      <Radio className="h-4 w-4" />
                     </div>
                     {cast.title}
                   </div>

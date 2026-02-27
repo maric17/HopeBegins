@@ -1,125 +1,151 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Heart, Radio, ArrowRight } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Heart,
+  Radio,
+  MessageSquare,
+  Mail,
+  HelpCircle,
+  ArrowRight,
+} from 'lucide-react';
+
+// Import the logo directly to ensure Next.js handles the path correctly
+import headerLogo from '@/assets/images/header-logo.png';
 
 export default function LandingPage() {
-  return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-zinc-50 selection:bg-blue-100 selection:text-blue-900">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-8 py-6 border-b border-zinc-100 dark:border-zinc-900 sticky top-0 bg-white/80 dark:bg-black/80 backdrop-blur-md z-50">
-        <div className="text-2xl font-black italic tracking-tighter text-blue-600 dark:text-blue-400">
-          HopeBegins
-        </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-zinc-500">
-          <Link href="#" className="hover:text-blue-600 transition-colors">
-            Hopecasts
-          </Link>
-          <Link href="#" className="hover:text-blue-600 transition-colors">
-            Resources
-          </Link>
-          <Link href="#" className="hover:text-blue-600 transition-colors">
-            Donate
-          </Link>
-        </div>
-        <div className="flex items-center gap-4">
-          <Link href="/dashboard">
-            <Button
-              variant="ghost"
-              className="font-bold uppercase tracking-widest text-xs h-10 px-6"
-            >
-              Login
-            </Button>
-          </Link>
-          <Link href="/dashboard">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-widest text-xs h-10 px-6 rounded-full">
-              Get Started
-            </Button>
-          </Link>
-        </div>
-      </nav>
+  const mainActions = [
+    {
+      title: 'I Need Someone to Pray for Me',
+      description: 'Share your heart — a Hope Carrier is ready to lift you up',
+      icon: Heart,
+      href: '/prayers',
+      color:
+        'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400',
+    },
+    {
+      title: 'I Need to Hear Hope Today',
+      description: 'Listen to a HopeCast that speaks to where you are',
+      icon: Radio,
+      href: '/hopecasts',
+      color:
+        'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400',
+    },
+    {
+      title: 'I Need Daily Hope',
+      description:
+        'Start receiving Daily Hope Drops — 21 days of hope in your inbox',
+      icon: Mail,
+      href: '/daily-hope',
+      color: 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
+    },
+    {
+      title: 'I Need to Talk to Hope AI',
+      description: 'Have a faith-filled conversation with Hope, anytime',
+      icon: MessageSquare,
+      href: '/hope-ai',
+      color:
+        'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    },
+    {
+      title: "I Don't Have Hope",
+      description: "That's okay — your Hopeful Beginning starts here",
+      icon: HelpCircle,
+      href: '/get-started',
+      color: 'bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400',
+    },
+  ];
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="px-8 py-32 md:py-48 flex flex-col items-center text-center max-w-5xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs font-black uppercase tracking-widest animate-pulse">
-            <Sparkles className="h-4 w-4" />
-            Your Daily Dose of Hope
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-20 px-6 overflow-hidden">
+        {/* Decorative background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/50 to-transparent dark:from-emerald-950/20 -z-10" />
+
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-emerald-200/20 blur-2xl rounded-full" />
+              <Image
+                src={headerLogo}
+                alt="HopeBegins"
+                width={56}
+                height={56}
+                style={{ height: 'auto' }}
+                className="relative opacity-60 grayscale brightness-125 hover:grayscale-0 transition-all duration-500 cursor-pointer w-14"
+              />
+            </div>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter leading-[0.9] text-zinc-900 dark:text-zinc-50">
-            Where Every <span className="text-blue-600">Prayer</span> Finds A
-            Voice.
+
+          <h1 className="text-5xl md:text-7xl font-bold text-zinc-800 dark:text-zinc-100 leading-[1.1] font-poppins tracking-tight">
+            HopeBegins <span className="text-[#6b634d]">Today.</span>
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-500 font-medium max-w-2xl leading-relaxed">
-            Join a global community dedicated to lifting each other up through
-            prayer, inspiration, and shared hope.
+
+          <p className="text-lg md:text-2xl text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed font-medium">
+            Your journey to overcoming anxiety, depression, and hopelessness
+            starts here. You are not alone.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 pt-8">
-            <Link href="/dashboard">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-widest text-sm h-14 px-10 rounded-full group">
-                Join the Community
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link href="/get-started">
+              <Button className="bg-[#6b634d] hover:bg-[#5a5341] text-white font-poppins font-bold uppercase tracking-widest text-xs h-12 px-8 rounded-full group">
+                Start Your Journey
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Button
               variant="outline"
-              className="border-zinc-200 dark:border-zinc-800 font-bold uppercase tracking-widest text-sm h-14 px-10 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900"
+              className="border-zinc-200 dark:border-zinc-800 font-poppins font-bold uppercase tracking-widest text-xs h-12 px-8 rounded-full"
             >
-              Explore Hopecasts
+              Watch Our Story
             </Button>
           </div>
-        </section>
-
-        {/* Features Grid */}
-        <section className="px-8 py-32 bg-zinc-50 dark:bg-zinc-950">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="space-y-4">
-              <div className="h-12 w-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center">
-                <Heart className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </div>
-              <h3 className="text-2xl font-black italic tracking-tight">
-                Prayer Support
-              </h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">
-                Share your requests anonymously or with the community. Our
-                Prayer Carriers are ready to stand with you.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="h-12 w-12 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center">
-                <Radio className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-              </div>
-              <h3 className="text-2xl font-black italic tracking-tight">
-                Daily Hopecasts
-              </h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">
-                Tune in to daily moments of reflection, encouragement, and
-                community prayer sessions live.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="h-12 w-12 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center">
-                <Sparkles className="h-6 w-6 text-amber-600 dark:text-amber-400" />
-              </div>
-              <h3 className="text-2xl font-black italic tracking-tight">
-                Hope AI
-              </h3>
-              <p className="text-zinc-500 font-medium leading-relaxed">
-                Experience guided reflections and personalized encouragement
-                powered by thoughtful AI interaction.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="px-8 py-20 border-t border-zinc-100 dark:border-zinc-900 text-center">
-        <div className="text-2xl font-black italic tracking-tighter text-blue-600 dark:text-blue-400 mb-8">
-          HopeBegins
         </div>
-        <p className="text-zinc-500 text-sm font-medium">
-          © 2026 HopeBegins. All rights reserved.
-        </p>
-      </footer>
-    </div>
+      </section>
+
+      {/* Action Cards Section */}
+      <section className="px-6 pb-32">
+        <div className="max-w-5xl mx-auto space-y-4">
+          <h2 className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-[#6b634d] mb-10 font-poppins">
+            How can we help you today?
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {mainActions.map((action, idx) => (
+              <Link
+                key={idx}
+                href={action.href}
+                className={
+                  idx === mainActions.length - 1 && mainActions.length % 2 !== 0
+                    ? 'md:col-span-2'
+                    : ''
+                }
+              >
+                <Card className="group h-full hover:shadow-xl hover:shadow-emerald-900/5 hover:border-emerald-200/50 dark:hover:border-emerald-800/50 transition-all duration-500 bg-white/90 dark:bg-zinc-900/90 border-zinc-100 dark:border-zinc-800 overflow-hidden">
+                  <CardContent className="p-6 flex items-center gap-6">
+                    <div
+                      className={`p-4 rounded-2xl ${action.color} transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm`}
+                    >
+                      <action.icon className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <h3 className="font-bold text-lg text-zinc-800 dark:text-zinc-200 group-hover:text-[#6b634d] dark:group-hover:text-emerald-400 transition-colors font-poppins">
+                        {action.title}
+                      </h3>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 font-medium leading-relaxed">
+                        {action.description}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-zinc-300 group-hover:text-[#6b634d] group-hover:translate-x-1 transition-all opacity-0 group-hover:opacity-100" />
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
