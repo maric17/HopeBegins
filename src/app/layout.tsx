@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Providers from '@/components/Providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins',
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-dm-sans',
+});
 
 export const metadata: Metadata = {
   title: 'HopeBegins',
@@ -16,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${poppins.variable} ${dmSans.variable}`}>
+      <body className={dmSans.className}>
         <Providers>{children}</Providers>
       </body>
     </html>
