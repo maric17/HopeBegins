@@ -7,7 +7,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-export default function UserLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;

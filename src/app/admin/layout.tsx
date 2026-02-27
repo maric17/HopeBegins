@@ -13,10 +13,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const MENU_ITEMS = [
-    { label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-    { label: 'Manage Prayers', href: '/manage-prayers', icon: ShieldAlert },
-    { label: 'Manage Hopecasts', href: '/manage-hopecasts', icon: Radio },
-    { label: 'Financials', href: '/donations', icon: BarChart3 },
+    { label: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
+    {
+      label: 'Manage Prayers',
+      href: '/admin/manage-prayers',
+      icon: ShieldAlert,
+    },
+    { label: 'Manage Hopecasts', href: '/admin/manage-hopecasts', icon: Radio },
+    { label: 'Financials', href: '/admin/donations', icon: BarChart3 },
   ];
 
   return (
