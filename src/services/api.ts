@@ -30,9 +30,15 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
     const errorMessage =
       data?.message ||
       data?.detail ||
+      data?.data?.message ||
       (typeof text === 'string' && text) ||
       'Something went wrong';
     throw new Error(errorMessage);
+  }
+
+  // If the response follows the standardized format, extract the data payload
+  if (data && typeof data === 'object' && 'status' in data && 'data' in data) {
+    return data.data;
   }
 
   return data;
