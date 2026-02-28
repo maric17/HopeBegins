@@ -90,6 +90,9 @@ export function PrayerForm() {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="GENERAL">General</SelectItem>
+                      <SelectItem value="ANXIETY_FEAR">
+                        Anxiety & Fear
+                      </SelectItem>
                       <SelectItem value="HEALTH">Health</SelectItem>
                       <SelectItem value="FINANCE">Finance</SelectItem>
                       <SelectItem value="RELATIONSHIP">Relationship</SelectItem>
