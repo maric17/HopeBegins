@@ -61,6 +61,25 @@ export function useMyForm() {
 }
 ```
 
+## Environment Configuration
+
+Use the centralized config in `src/config/index.ts` for all API URLs and environment-specific logic.
+
+```typescript
+import { config } from '@/config';
+
+// Use config.API_URL instead of hardcoding strings
+const url = `${config.API_URL}/endpoint`;
+```
+
+## Implementation Example: Admin Login Form
+
+The Admin Login form serves as another reference implementation for these patterns.
+- UI: `src/app/admin/login/components/AdminLoginForm.tsx`
+- Logic: `src/app/admin/login/hooks/useAdminLogin.ts`
+- Service: `src/services/adminService.ts`
+- Config: `src/config/index.ts`
+
 ### Component Structure (`components/[FormName].tsx`)
 The component should focus purely on the JSX layout and use the hook for all logic.
 

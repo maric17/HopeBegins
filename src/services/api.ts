@@ -7,12 +7,33 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
     },
   });
 
-  if (!response.ok) {
-    const error = await response
-      .json()
-      .catch(() => ({ message: 'An error occurred' }));
-    throw new Error(error.message || 'Something went wrong');
+  // Handle empty responses (204 No Content, 205 Reset Content)
+  if (response.status === 204 || response.status === 205) {
+    if (!response.ok) {
+      throw new Error('An error occurred');
+    }
+    return null;
   }
 
-  return response.json();
+  const text = await response.text();
+  let data = null;
+
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    // If not valid JSON, treat text as the message or return null
+    data = text ? { message: text } : null;
+  }
+
+  if (!response.ok) {
+    const errorMessage =
+      data?.message ||
+      data?.detail ||
+      (typeof text === 'string' && text) ||
+      'Something went wrong';
+    throw new Error(errorMessage);
+  }
+
+  return data;
 }
