@@ -53,7 +53,14 @@ React code in this project.
 
 ---
 
-## 5. Testing
+## 5. Interaction & API Handling
+
+- **Double-Click Prevention**: All buttons or interactive elements that trigger an API call MUST be disabled while the request is in progress (`isPending`, `isLoading`, etc.).
+- Provide visual feedback (e.g., loading spinners, "Processing...") during API interactions.
+
+---
+
+## 6. Testing
 
 - Always **use mock data** for tests
 - Always **update or add tests** when code changes affect logic or behavior
