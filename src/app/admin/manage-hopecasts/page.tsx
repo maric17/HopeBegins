@@ -1,171 +1,137 @@
 'use client';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { AlertCircle, RefreshCw, Search, Plus, Radio } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Play,
-  Trash2,
-  Edit,
-  Plus,
-  Radio,
-  Search,
-  MoreVertical,
-} from 'lucide-react';
 import { Input } from '@/components/ui/input';
-
-const MOCK_HOPECASTS = [
-  {
-    id: '1',
-    title: 'Morning Light',
-    host: 'Pastor Chris',
-    duration: '12:45',
-    status: 'PUBLISHED',
-    plays: '1,240',
-    date: '2026-02-26',
-  },
-  {
-    id: '2',
-    title: 'Peace in the Storm',
-    host: 'Sarah Evans',
-    duration: '08:30',
-    status: 'DRAFT',
-    plays: '0',
-    date: '2026-02-25',
-  },
-];
+import { useManageHopecasts } from './hooks/useManageHopecasts';
+import { DeleteModal } from './components/DeleteModal';
+import { HopecastModal } from './components/HopecastModal';
+import { MobileCard } from './components/MobileCard';
+import { HopecastTable } from './components/HopecastTable';
 
 export default function ManageHopecastsPage() {
-  return (
-    <div className="p-12 space-y-10">
-      <header className="flex justify-between items-end">
-        <div>
-          <h1 className="text-4xl font-black italic tracking-tighter">
-            Manage Hopecasts
-          </h1>
-          <p className="text-zinc-500 font-medium">
-            Control your audio content and broadcast schedule.
-          </p>
-        </div>
-        <div className="flex gap-4">
-          <div className="relative w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
-            <Input
-              placeholder="Search hopecasts..."
-              className="pl-10 h-10 rounded-xl border-none bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-200/50"
-            />
-          </div>
-          <Button className="bg-brand hover:bg-brand-hover text-brand-foreground rounded-xl h-10 px-6 font-bold uppercase tracking-widest text-xs">
-            <Plus className="mr-2 h-4 w-4" />
-            New Cast
-          </Button>
-        </div>
-      </header>
+  const {
+    hopecasts, filtered, categories,
+    isLoadingCasts, isErrorCasts, refetch,
+    search, setSearch,
+    deleteTarget, setDeleteTarget,
+    editTarget, setEditTarget,
+    deleteMutation, isSavePending, handleSave,
+  } = useManageHopecasts();
 
-      <Card className="border-none shadow-2xl bg-white dark:bg-zinc-900 overflow-hidden">
-        <Table>
-          <TableHeader className="bg-zinc-50 dark:bg-zinc-800/50">
-            <TableRow className="hover:bg-transparent border-zinc-100 dark:border-zinc-800">
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6 pl-8">
-                Title
-              </TableHead>
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6">
-                Host
-              </TableHead>
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6">
-                Duration
-              </TableHead>
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6">
-                Status
-              </TableHead>
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6">
-                Plays
-              </TableHead>
-              <TableHead className="font-black uppercase tracking-widest text-[10px] py-6 pr-8 text-right">
-                Actions
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {MOCK_HOPECASTS.map((cast) => (
-              <TableRow
-                key={cast.id}
-                className="hover:bg-zinc-50/50 dark:hover:bg-zinc-800/30 border-zinc-100 dark:border-zinc-800 h-20"
+  if (isErrorCasts) {
+    return (
+      <div className="p-8 flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <div className="h-16 w-16 rounded-2xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+          <AlertCircle className="h-8 w-8 text-red-500" />
+        </div>
+        <h2 className="text-2xl font-black tracking-tight">Failed to load hopecasts</h2>
+        <p className="text-zinc-500 font-medium">Check your connection or try again.</p>
+        <Button onClick={() => refetch()} className="mt-2 h-10 px-6 rounded-xl bg-brand text-brand-foreground font-bold">
+          <RefreshCw className="h-4 w-4 mr-2" /> Retry
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {deleteTarget && (
+        <DeleteModal
+          hopecast={deleteTarget}
+          onConfirm={() => deleteMutation.mutate(deleteTarget.id)}
+          onCancel={() => setDeleteTarget(null)}
+          isPending={deleteMutation.isPending}
+        />
+      )}
+
+      {editTarget !== undefined && (
+        <HopecastModal
+          initial={editTarget}
+          categories={categories}
+          onSave={handleSave}
+          onClose={() => setEditTarget(undefined)}
+          isPending={isSavePending}
+        />
+      )}
+
+      <div className="p-4 sm:p-8 lg:p-12 space-y-6 sm:space-y-10">
+        {/* ── Header ── */}
+        <header className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+          <div>
+            <h1 className="text-3xl font-black italic tracking-tighter whitespace-nowrap">
+              Manage Hopecasts
+            </h1>
+            <p className="text-zinc-500 font-medium text-sm sm:text-base">
+              Publish and organise your audio content.
+              {!isLoadingCasts && (
+                <span className="ml-2 text-zinc-400">{hopecasts.length} total</span>
+              )}
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto flex-shrink-0">
+            <div className="relative flex-1 sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+              <Input
+                placeholder="Search hopecasts..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10 h-10 rounded-xl border-none bg-white dark:bg-zinc-900 shadow-lg shadow-zinc-200/50 w-full"
+              />
+            </div>
+            <Button
+              onClick={() => setEditTarget(null)}
+              className="h-10 px-5 rounded-xl bg-brand hover:bg-brand-hover text-brand-foreground font-bold text-xs uppercase tracking-widest shrink-0"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              New Cast
+            </Button>
+          </div>
+        </header>
+
+        {/* ── Mobile: card list ── */}
+        <div className="md:hidden space-y-3">
+          {isLoadingCasts && [...Array(3)].map((_, i) => (
+            <div key={i} className="h-28 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 animate-pulse" />
+          ))}
+          {!isLoadingCasts && filtered.length === 0 && (
+            <div className="flex flex-col items-center gap-3 py-16">
+              <div className="h-12 w-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
+                <Radio className="h-5 w-5 text-zinc-400" />
+              </div>
+              <p className="font-bold text-zinc-500">
+                {search ? 'No hopecasts match your search.' : 'No hopecasts yet.'}
+              </p>
+              <Button
+                onClick={() => setEditTarget(null)}
+                className="h-9 px-5 rounded-xl bg-brand text-brand-foreground font-bold text-xs"
               >
-                <TableCell className="font-bold text-zinc-900 dark:text-zinc-100 pl-8">
-                  <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 bg-brand-muted rounded-lg flex items-center justify-center text-brand">
-                      <Radio className="h-4 w-4" />
-                    </div>
-                    {cast.title}
-                  </div>
-                </TableCell>
-                <TableCell className="text-zinc-500 font-medium">
-                  {cast.host}
-                </TableCell>
-                <TableCell className="text-zinc-500 font-medium tabular-nums">
-                  {cast.duration}
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant="outline"
-                    className={`rounded-full border-zinc-200 dark:border-zinc-700 font-black text-[10px] tracking-widest ${
-                      cast.status === 'PUBLISHED'
-                        ? 'text-green-600'
-                        : 'text-amber-600'
-                    }`}
-                  >
-                    {cast.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-zinc-500 font-medium tabular-nums">
-                  {cast.plays}
-                </TableCell>
-                <TableCell className="pr-8 text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 rounded-full"
-                    >
-                      <Play className="h-4 w-4 text-zinc-400" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 rounded-full"
-                    >
-                      <Edit className="h-4 w-4 text-zinc-400" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 rounded-full hover:bg-red-50 group"
-                    >
-                      <Trash2 className="h-4 w-4 text-zinc-400 group-hover:text-red-600" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 rounded-full"
-                    >
-                      <MoreVertical className="h-4 w-4 text-zinc-400" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
-    </div>
+                <Plus className="h-3 w-3 mr-1.5" />
+                Create your first cast
+              </Button>
+            </div>
+          )}
+          {!isLoadingCasts && filtered.map((cast) => (
+            <MobileCard
+              key={cast.id}
+              cast={cast}
+              onEdit={() => setEditTarget(cast)}
+              onDelete={() => setDeleteTarget(cast)}
+            />
+          ))}
+        </div>
+
+        {/* ── Desktop: table ── */}
+        <HopecastTable
+          filtered={filtered}
+          isLoading={isLoadingCasts}
+          search={search}
+          onEdit={(cast) => setEditTarget(cast)}
+          onDelete={(cast) => setDeleteTarget(cast)}
+          onCreateFirst={() => setEditTarget(null)}
+        />
+      </div>
+    </>
   );
 }
