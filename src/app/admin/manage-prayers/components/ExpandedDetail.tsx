@@ -18,7 +18,7 @@ export function ExpandedDetail({
   isPending,
 }: ExpandedDetailProps) {
   return (
-    <div className="pt-4 mt-4 border-t border-zinc-100 dark:border-zinc-800 space-y-4">
+    <div className="pt-3">
       <p className="text-zinc-700 dark:text-zinc-300 font-medium leading-relaxed text-sm w-full break-words overflow-hidden">
         {prayer.content}
       </p>
