@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:backend": "cd ../hopebeginbackend && .\\venv\\Scripts\\python.exe manage.py runserver 3003",
+    "dev:all": "start npm run dev & npm run dev:backend",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
