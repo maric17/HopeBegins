@@ -1,11 +1,12 @@
 'use client';
 
-import { AlertCircle, RefreshCw, Search } from 'lucide-react';
+import { Search, AlertCircle, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CustomSelect } from '@/components/ui/custom-select';
 import { useManagePrayers } from './hooks/useManagePrayers';
 import { DeleteModal } from './components/DeleteModal';
+import { AssignCarrierModal } from './components/AssignCarrierModal';
 import { MobileCard } from './components/MobileCard';
 import { PrayerTable } from './components/PrayerTable';
 import type { PrayerStatus } from '@/types/admin';
@@ -22,6 +23,7 @@ export default function ManagePrayersPage() {
   const {
     filtered,
     prayers,
+    carriers,
     isLoading,
     isError,
     refetch,
@@ -30,10 +32,13 @@ export default function ManagePrayersPage() {
     expandedId,
     deleteTarget,
     setDeleteTarget,
+    assignTarget,
+    setAssignTarget,
     statusFilter,
     setStatusFilter,
     deleteMutation,
     statusMutation,
+    assignMutation,
     handleToggle,
     handleMarkPrayed,
     handleStatusChange,
@@ -70,6 +75,18 @@ export default function ManagePrayersPage() {
           onConfirm={() => deleteMutation.mutate(deleteTarget.id)}
           onCancel={() => setDeleteTarget(null)}
           isPending={deleteMutation.isPending}
+        />
+      )}
+
+      {assignTarget && (
+        <AssignCarrierModal
+          prayer={assignTarget}
+          carriers={carriers}
+          onConfirm={(carrierId) =>
+            assignMutation.mutate({ id: assignTarget.id, carrierId })
+          }
+          onCancel={() => setAssignTarget(null)}
+          isPending={assignMutation.isPending}
         />
       )}
 
@@ -142,12 +159,15 @@ export default function ManagePrayersPage() {
                 prayer={prayer}
                 isExpanded={expandedId === prayer.id}
                 isUpdating={
-                  statusMutation.isPending &&
-                  statusMutation.variables?.id === prayer.id
+                  (statusMutation.isPending &&
+                    statusMutation.variables?.id === prayer.id) ||
+                  (assignMutation.isPending &&
+                    assignMutation.variables?.id === prayer.id)
                 }
                 onToggle={() => handleToggle(prayer.id)}
                 onMarkPrayed={() => handleMarkPrayed(prayer)}
                 onStatusChange={(status) => handleStatusChange(prayer, status)}
+                onAssign={() => setAssignTarget(prayer)}
                 onSendFollowUp={() => handleSendFollowUp(prayer)}
                 onDelete={() => setDeleteTarget(prayer)}
               />
@@ -159,13 +179,18 @@ export default function ManagePrayersPage() {
           filtered={filtered}
           isLoading={isLoading}
           expandedId={expandedId}
-          statusMutationPending={statusMutation.isPending}
-          statusMutationVariableId={statusMutation.variables?.id}
+          statusMutationPending={
+            statusMutation.isPending || assignMutation.isPending
+          }
+          statusMutationVariableId={
+            statusMutation.variables?.id || assignMutation.variables?.id
+          }
           search={search}
           statusFilter={statusFilter}
           onToggle={handleToggle}
           onMarkPrayed={handleMarkPrayed}
           onStatusChange={handleStatusChange}
+          onAssign={(p) => setAssignTarget(p)}
           onSendFollowUp={handleSendFollowUp}
           onDelete={(p) => setDeleteTarget(p)}
         />
