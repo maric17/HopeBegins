@@ -1,5 +1,10 @@
 import { useState, useMemo, useCallback } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from '@tanstack/react-query';
 import { adminService } from '@/services/adminService';
 import { notify } from '@/lib/notifications';
 import type {
@@ -20,11 +25,13 @@ export function useManageHopecasts() {
   const {
     data: rawHopecasts,
     isLoading: isLoadingCasts,
+    isFetching: isFetchingCasts,
     isError: isErrorCasts,
     refetch,
   } = useQuery({
     queryKey: ['admin', 'hopecasts'],
     queryFn: () => adminService.getHopecasts(),
+    placeholderData: keepPreviousData,
   });
 
   const { data: rawCategories } = useQuery({
@@ -109,6 +116,7 @@ export function useManageHopecasts() {
     filtered,
     categories,
     isLoadingCasts,
+    isFetchingCasts,
     isErrorCasts,
     refetch,
     // state

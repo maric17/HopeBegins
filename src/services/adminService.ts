@@ -57,10 +57,18 @@ export const adminService = {
   // ─────────────────────────────────────────────
 
   /**
-   * Fetch all prayer requests.
+   * Fetch all prayer requests - paginated with filtering.
    */
-  getPrayers: async (): Promise<Prayer[]> => {
-    return fetchWithAuth(`${config.API_URL}/prayers/requests/`, {
+  getPrayers: async (
+    page = 1,
+    search = '',
+    status: PrayerStatus | 'ALL' = 'ALL'
+  ): Promise<PaginatedResponse<Prayer>> => {
+    let url = `${config.API_URL}/prayers/requests/?page=${page}`;
+    if (search) url += `&search=${search}`;
+    if (status !== 'ALL') url += `&status=${status}`;
+
+    return fetchWithAuth(url, {
       headers: authHeader(),
     });
   },

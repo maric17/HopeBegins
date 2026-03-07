@@ -15,6 +15,7 @@ export default function ManageHopecastsPage() {
     filtered,
     categories,
     isLoadingCasts,
+    isFetchingCasts,
     isErrorCasts,
     refetch,
     search,
@@ -110,14 +111,14 @@ export default function ManageHopecastsPage() {
 
         {/* ── Mobile: card list ── */}
         <div className="md:hidden space-y-3">
-          {isLoadingCasts &&
+          {(isLoadingCasts || isFetchingCasts) &&
             [...Array(3)].map((_, i) => (
               <div
                 key={i}
                 className="h-28 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-100 animate-pulse"
               />
             ))}
-          {!isLoadingCasts && filtered.length === 0 && (
+          {!isLoadingCasts && !isFetchingCasts && filtered.length === 0 && (
             <div className="flex flex-col items-center gap-3 py-16">
               <div className="h-12 w-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center">
                 <Radio className="h-5 w-5 text-zinc-400" />
@@ -137,6 +138,7 @@ export default function ManageHopecastsPage() {
             </div>
           )}
           {!isLoadingCasts &&
+            !isFetchingCasts &&
             filtered.map((cast) => (
               <MobileCard
                 key={cast.id}
@@ -150,7 +152,7 @@ export default function ManageHopecastsPage() {
         {/* ── Desktop: table ── */}
         <HopecastTable
           filtered={filtered}
-          isLoading={isLoadingCasts}
+          isLoading={isLoadingCasts || isFetchingCasts}
           search={search}
           onEdit={(cast) => setEditTarget(cast)}
           onDelete={(cast) => setDeleteTarget(cast)}
