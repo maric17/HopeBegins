@@ -54,10 +54,10 @@ export default function AdminDashboard() {
       {/* ── Header ── */}
       <header className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
         <div>
-          <h1 className="text-3xl font-black italic tracking-tighter whitespace-nowrap">
+          <h1 className="text-3xl font-black italic tracking-tighter">
             The Hope Desk
           </h1>
-          <p className="text-zinc-500 font-medium text-sm">
+          <p className="mt-2 text-zinc-500 font-medium text-sm">
             System-wide overview and live performance data.
           </p>
         </div>

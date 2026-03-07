@@ -138,10 +138,10 @@ export function JourneyTable({
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <span className="font-black text-lg text-brand">
-                        Day {journey.current_day}
+                        Day {Math.max(1, journey.current_day - 1)}
                       </span>
                       <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-tighter">
-                        of Journey
+                        completed
                       </span>
                     </div>
                   </TableCell>

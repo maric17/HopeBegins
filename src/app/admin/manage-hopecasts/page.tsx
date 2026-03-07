@@ -79,13 +79,18 @@ export default function ManageHopecastsPage() {
         {/* ── Header ── */}
         <header className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
           <div>
-            <h1 className="text-3xl font-black italic tracking-tighter whitespace-nowrap">
+            <h1 className="text-3xl font-black italic tracking-tighter">
               Manage Hopecasts
             </h1>
-            <p className="text-zinc-500 font-medium text-sm sm:text-base">
+            <p className="mt-2 text-zinc-500 font-medium text-sm sm:text-base">
               Publish and organise your audio content.
               {!isLoadingCasts && (
-                <span className="ml-2 text-zinc-400">{totalCount} total</span>
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400">
+                  {totalCount} Total
+                  {isFetchingCasts && (
+                    <RefreshCw className="h-3 w-3 animate-spin text-brand ml-1" />
+                  )}
+                </span>
               )}
             </p>
           </div>

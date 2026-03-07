@@ -4,7 +4,6 @@ import {
   AlertCircle,
   RefreshCw,
   Search,
-  Users,
   Trash2,
   Calendar,
   Mail,
@@ -76,36 +75,32 @@ export default function DailyHopeAdminPage() {
 
       <div className="p-4 sm:p-8 lg:p-12 space-y-8 sm:space-y-12 max-w-[1600px] mx-auto min-h-screen">
         {/* ── Header ── */}
-        <header className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-6">
-          <div className="space-y-1">
-            <h1 className="text-4xl font-black italic tracking-tighter text-zinc-900 dark:text-white flex items-center gap-3">
-              <div className="h-12 w-12 bg-brand rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3">
-                <Users className="h-6 w-6 text-white" />
-              </div>
+        <header className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+          <div>
+            <h1 className="text-3xl font-black italic tracking-tighter">
               Hope Subscribers
             </h1>
-            <p className="text-zinc-500 font-medium text-sm sm:text-lg flex items-center gap-2">
-              Managing everyone currently in the 30-day &quot;Daily Hope&quot;
-              journey.
+            <p className="mt-2 text-zinc-500 font-medium text-sm sm:text-base">
+              Managing everyone in the 30-day &quot;Daily Hope&quot; journey.
               {!isLoading && (
-                <span className="flex items-center gap-1.5 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-full text-xs font-black uppercase tracking-widest text-zinc-400">
-                  {totalCount} total
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400">
+                  {totalCount} Total
                   {isFetching && (
-                    <RefreshCw className="h-3 w-3 animate-spin text-brand" />
+                    <RefreshCw className="h-3 w-3 animate-spin text-brand ml-1" />
                   )}
                 </span>
               )}
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-96 flex-shrink-0">
-            <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto flex-shrink-0">
+            <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
               <Input
                 placeholder="Search by name or email..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-11 h-12 rounded-2xl border-none bg-white dark:bg-zinc-900 shadow-xl shadow-zinc-200/50 dark:shadow-none ring-1 ring-zinc-200 dark:ring-zinc-800 focus:ring-2 focus:ring-brand font-medium w-full transition-all"
+                className="pl-10 h-10 rounded-xl border-none bg-white dark:bg-zinc-900 shadow-lg shadow-zinc-200/50 w-full"
               />
             </div>
           </div>
@@ -150,7 +145,7 @@ export default function DailyHopeAdminPage() {
                       </h3>
                       <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest flex items-center gap-1.5">
                         <Clock className="h-3 w-3" />
-                        Day {journey.current_day}
+                        Day {Math.max(1, journey.current_day - 1)} completed
                       </p>
                     </div>
                   </div>
@@ -235,15 +230,13 @@ export default function DailyHopeAdminPage() {
         {/* ── Footer Stats ── */}
         {!isLoading && totalCount > 0 && (
           <footer className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 bg-brand-muted/10 rounded-3xl border border-brand-muted/20">
-            <div className="flex items-center gap-6">
-              <div className="flex flex-col">
-                <span className="text-[10px] font-black uppercase tracking-widest text-brand">
-                  Total Database
-                </span>
-                <span className="text-2xl font-black italic">{totalCount}</span>
-              </div>
+            <div className="flex flex-col items-center sm:items-start">
+              <span className="text-[10px] font-black uppercase tracking-widest text-brand">
+                Total Database
+              </span>
+              <span className="text-3xl font-black italic text-center sm:text-left">{totalCount}</span>
             </div>
-            <div className="text-right">
+            <div className="text-center sm:text-right">
               <p className="text-xs font-medium text-zinc-500 italic max-w-xs">
                 Subscribers will automatically progress through the journey day
                 by day.

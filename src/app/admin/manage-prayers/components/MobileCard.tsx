@@ -32,25 +32,25 @@ export function MobileCard({
           : 'border-zinc-100 dark:border-zinc-800 shadow-sm'
       }`}
     >
-      <div className="p-4 cursor-pointer" onClick={onToggle}>
-        <div className="flex items-start justify-between gap-2">
+      <div className="px-4 pt-4 pb-3 cursor-pointer" onClick={onToggle}>
+        <div className="flex items-start justify-between gap-3">
           <div className="flex-1 min-w-0">
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="font-bold text-zinc-900 dark:text-zinc-100 truncate">
+            <div className="flex flex-wrap items-center gap-2 mb-1.5">
+              <span className="font-bold text-zinc-900 dark:text-zinc-100 leading-snug">
                 {prayer.isAnonymous || !prayer.shareFirstName
                   ? 'Anonymous'
                   : prayer.title}
               </span>
               <CategoryBadge category={prayer.category as PrayerCategory} />
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap mt-1">
               <StatusBadge status={prayer.status} />
               <span className="text-xs text-zinc-400 font-medium">
                 {formatDate(prayer.created_at)}
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex items-center gap-1 shrink-0 mt-0.5">
             <button
               onClick={(e) => {
                 e.stopPropagation();

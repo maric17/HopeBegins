@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${dmSans.variable}`}>
-      <body className={dmSans.className}>
+      <body className={dmSans.className} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

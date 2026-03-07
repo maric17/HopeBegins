@@ -37,7 +37,7 @@ export function Modal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         className={cn(
-          'rounded-3xl p-0 max-w-lg shadow-2xl shadow-black/20 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 max-h-[90vh] overflow-hidden flex flex-col',
+          'rounded-3xl p-0 sm:max-w-lg shadow-2xl shadow-black/20 border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 max-h-[90vh] overflow-hidden flex flex-col',
           className
         )}
       >

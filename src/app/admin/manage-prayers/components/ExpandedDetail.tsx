@@ -34,16 +34,16 @@ export function ExpandedDetail({
         </div>
       )}
 
-      <div className="flex flex-wrap gap-2 pt-1">
+      <div className="flex flex-row gap-2 pt-3">
         {prayer.status === 'NEW' && (
           <Button
             variant="ghost"
             onClick={onAssign}
             disabled={isPending}
-            className="h-8 sm:h-9 px-3 sm:px-5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs uppercase tracking-widest border-0"
+            className="flex-1 h-9 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase tracking-widest border-0"
           >
             <UserCheck className="h-3 w-3 mr-1.5" />
-            Assign to Carrier
+            Assign
           </Button>
         )}
 
@@ -51,14 +51,14 @@ export function ExpandedDetail({
           <Button
             onClick={onMarkPrayed}
             disabled={isPending}
-            className="h-8 sm:h-9 px-3 sm:px-5 rounded-xl bg-brand text-brand-foreground hover:bg-brand-hover font-bold text-xs uppercase tracking-widest"
+            className="flex-1 h-9 px-3 rounded-xl bg-brand text-brand-foreground hover:bg-brand-hover font-bold text-xs uppercase tracking-widest"
           >
             {isPending ? (
               <Loader2 className="h-3 w-3 animate-spin" />
             ) : (
               <>
                 <CheckCircle className="h-3 w-3 mr-1.5" />
-                Mark as Prayed
+                Mark Prayed
               </>
             )}
           </Button>

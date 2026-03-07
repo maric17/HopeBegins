@@ -88,7 +88,7 @@ export function StatCards({ stats, isLoading }: StatCardsProps) {
               <div className="text-3xl font-black tabular-nums">
                 {stat.value}
               </div>
-              <p className="text-[10px] font-bold mt-1 text-zinc-400 flex items-center gap-1">
+              <p className="text-[10px] font-bold mt-1 text-emerald-500 flex items-center gap-1">
                 <TrendingUp className="h-3 w-3" />
                 {stat.trend}
               </p>

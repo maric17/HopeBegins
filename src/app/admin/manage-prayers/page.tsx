@@ -97,22 +97,22 @@ export default function ManagePrayersPage() {
         {/* ── Header ── */}
         <header className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
           <div>
-            <h1 className="text-3xl font-black italic tracking-tighter whitespace-nowrap">
+            <h1 className="text-3xl font-black italic tracking-tighter">
               Manage Prayers
             </h1>
-            <p className="text-zinc-500 font-medium text-sm sm:text-base">
+            <p className="mt-2 text-zinc-500 font-medium text-sm sm:text-base">
               Review, moderate, and organize community requests.
               {!isLoading && (
-                <span className="ml-2 text-zinc-400 flex items-center gap-2">
-                  {totalCount} total
+                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-400">
+                  {totalCount} Total
                   {isFetching && (
-                    <RefreshCw className="h-3 w-3 animate-spin text-brand" />
+                    <RefreshCw className="h-3 w-3 animate-spin text-brand ml-1" />
                   )}
                 </span>
               )}
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch gap-3 w-full md:w-auto flex-shrink-0">
             <CustomSelect
               value={statusOptions.find((opt) => opt.value === statusFilter)}
               onChange={(newValue) => {
@@ -125,7 +125,7 @@ export default function ManagePrayersPage() {
               placeholder="All Statuses"
               isSearchable={false}
             />
-            <div className="relative flex-1 sm:w-64">
+            <div className="relative w-full sm:w-64">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
               <Input
                 placeholder="Search prayers..."
