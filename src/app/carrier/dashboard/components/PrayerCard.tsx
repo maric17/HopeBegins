@@ -33,7 +33,7 @@ export function PrayerCard({
   return (
     <motion.div
       layout
-      className={`group relative bg-white dark:bg-zinc-900 rounded-[2.5rem] border transition-all duration-500 overflow-hidden ${
+      className={`group relative bg-white dark:bg-zinc-900 rounded-[2.5rem] border transition-all duration-500 ${
         isExpanded
           ? 'border-[#b4c392]/50 shadow-2xl shadow-[#b4c392]/10 ring-1 ring-[#b4c392]/20'
           : 'border-zinc-100 dark:border-zinc-800 hover:border-[#b4c392]/30 hover:shadow-xl hover:shadow-zinc-200/40 dark:hover:shadow-none'
@@ -44,9 +44,9 @@ export function PrayerCard({
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex items-start justify-between gap-6">
-          <div className="flex-1 space-y-4">
-            <div className="flex items-center gap-4 flex-wrap">
-              <h3 className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-zinc-100 group-hover:text-[#b4c392] transition-colors">
+          <div className="flex-1 space-y-2">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h3 className="text-xl font-black italic tracking-tighter text-zinc-900 dark:text-zinc-100 group-hover:text-[#b4c392] transition-colors">
                 {prayer.isAnonymous || !prayer.shareFirstName
                   ? 'Anonymous'
                   : prayer.title}
@@ -54,17 +54,11 @@ export function PrayerCard({
               <span className="px-3 py-1 bg-[#b4c392]/10 text-[#b4c392] text-[10px] font-black uppercase tracking-widest rounded-full">
                 {getCategoryLabel(prayer.category)}
               </span>
-              <span className="text-[10px] font-bold text-zinc-400 flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-zinc-200" />
-                {format(new Date(prayer.created_at), 'MMM d, yyyy')}
-              </span>
             </div>
-
-            <p
-              className={`text-zinc-600 dark:text-zinc-400 font-medium leading-relaxed ${isExpanded ? '' : 'line-clamp-1'}`}
-            >
-              {prayer.content}
-            </p>
+            <span className="text-[10px] font-bold text-zinc-400 flex items-center gap-2">
+              <span className="w-1 h-1 rounded-full bg-zinc-200" />
+              {format(new Date(prayer.created_at), 'MMM d, yyyy')}
+            </span>
           </div>
 
           <div className="flex items-center gap-4">
