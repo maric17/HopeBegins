@@ -17,12 +17,12 @@ const CONFIG = {
     BASE_URL: 'http://localhost:3000',
   },
   dev: {
-    API_URL: 'https://dev-api.hopebegins.com/api',
-    BASE_URL: 'https://dev.hopebegins.com',
+    API_URL: 'https://dev-api.hopebegins.today/api',
+    BASE_URL: 'https://dev.hopebegins.today',
   },
   prod: {
-    API_URL: 'https://api.hopebegins.com/api',
-    BASE_URL: 'https://hopebegins.com',
+    API_URL: 'https://api.hopebegins.today/api',
+    BASE_URL: 'https://hopebegins.today',
   },
 };
 
