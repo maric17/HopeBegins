@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Providers from '@/components/Providers';
+import Script from 'next/script';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,6 +28,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} ${dmSans.variable}`}>
+       <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-FBGY484963"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FBGY484963');
+          `}
+        </Script>
+      </head>
       <body className={dmSans.className} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
