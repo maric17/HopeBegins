@@ -5,10 +5,11 @@ import { useMutation } from '@tanstack/react-query';
 import { userService } from '@/services/userService';
 import { notify } from '@/lib/notifications';
 
-const PRESET_AMOUNTS = [200, 500, 1000, 5000];
+const PRESET_AMOUNTS = [100, 500, 1000];
 
 export function useGiveHope() {
   const [selectedAmount, setSelectedAmount] = useState<number>(500);
+  const [isCustom, setIsCustom] = useState(false);
 
   const donationMutation = useMutation({
     mutationFn: () =>
@@ -29,6 +30,8 @@ export function useGiveHope() {
   return {
     selectedAmount,
     setSelectedAmount,
+    isCustom,
+    setIsCustom,
     presetAmounts: PRESET_AMOUNTS,
     handleDonate: donationMutation.mutate,
     isPending: donationMutation.isPending,
